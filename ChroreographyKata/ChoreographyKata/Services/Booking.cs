@@ -1,17 +1,19 @@
-﻿namespace ChoreographyKata.Services
+﻿using ChoreographyKata.Workflow;
+
+namespace ChoreographyKata.Services
 {
     public class Booking
     {
-        private readonly Inventory inventory;
+        private readonly BookingWorkflow workflow;
 
-        public Booking(Inventory inventory)
+        public Booking(BookingWorkflow workflow)
         {
-            this.inventory = inventory;
+            this.workflow = workflow;
         }
 
         public void Book(int numberOfSeats)
         {
-            inventory.DecrementCapacity(numberOfSeats);
+            workflow.Book(numberOfSeats);
 
             Console.WriteLine($"booking requested: {numberOfSeats}");
         }

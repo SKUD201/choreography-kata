@@ -3,23 +3,24 @@
     public class Inventory
     {
         private int capacity;
-        private Ticketing ticketing;
 
-        public Inventory(int capacity, Ticketing ticketing)
+        public Inventory(int capacity)
         {
             this.capacity = capacity;
-            this.ticketing = ticketing;
         }
 
-        public void DecrementCapacity(int numberOfSeats)
+        public bool DecrementCapacity(int numberOfSeats)
         {
             if (capacity >= numberOfSeats)
             {
                 capacity -= numberOfSeats;
-                ticketing.printTicket(numberOfSeats);
+                Console.WriteLine($"Remaining seats: {capacity}");
+
+                return true;
             }
 
-            Console.WriteLine($"Remaining seats: {capacity}");
+            Console.WriteLine($"Not enought seats ! (current: {capacity}");
+            return false;
         }
 
         public int RemainingCapacity()
