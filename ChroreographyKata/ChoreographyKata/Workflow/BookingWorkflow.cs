@@ -21,11 +21,11 @@ namespace ChoreographyKata.Workflow
 
             if (decreased)
             {
-                ticketing.printTicket(numberOfSeats);
+                ticketing.PrintTicket(numberOfSeats);
             }
             else
             {
-                notification.SendNotEnoughSeats();
+                //notification.SendNotEnoughSeats();
             }
         }
     }

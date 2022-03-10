@@ -1,4 +1,4 @@
-﻿using ChoreographyKata.Workflow;
+﻿using ChoreographyKata.Messaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ChoreographyKata.Services.Tests
@@ -9,12 +9,13 @@ namespace ChoreographyKata.Services.Tests
         [TestMethod]
         public void Book_NominalCase()
         {
-            var t = new Ticketing();
-            var i = new Inventory(10);
-            var n = new Notification();
-            var bw = new BookingWorkflow(i, t, n);
+            var ms = new MessageBus();
 
-            var b = new Booking(bw);
+            new Ticketing(ms);
+            new Notification(ms);
+            var i = new Inventory(10, ms);
+
+            var b = new Booking(ms);
 
             b.Book(2);
 
@@ -24,12 +25,13 @@ namespace ChoreographyKata.Services.Tests
         [TestMethod]
         public void Book_NotEnoughSeats()
         {
-            var t = new Ticketing();
-            var i = new Inventory(10);
-            var n = new Notification();
-            var bw = new BookingWorkflow(i, t, n);
+            var ms = new MessageBus();
 
-            var b = new Booking(bw);
+            new Ticketing(ms);
+            new Notification(ms);
+            var i = new Inventory(10, ms);
+
+            var b = new Booking(ms);
 
             b.Book(12);
 

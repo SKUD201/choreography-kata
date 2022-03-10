@@ -1,21 +1,26 @@
-﻿using ChoreographyKata.Workflow;
+﻿using ChoreographyKata.Messaging;
 
 namespace ChoreographyKata.Services
 {
-    public class Booking
+    public class Booking : IListener
     {
-        private readonly BookingWorkflow workflow;
+        private readonly MessageBus _messageBus;
 
-        public Booking(BookingWorkflow workflow)
+        public Booking(MessageBus messageBus)
         {
-            this.workflow = workflow;
+            _messageBus = messageBus;
+            _messageBus.Subscribe(this);
         }
 
         public void Book(int numberOfSeats)
         {
-            workflow.Book(numberOfSeats);
+            _messageBus.Send(new Event { Name = "BookingRequested", Payload = numberOfSeats });
 
             Console.WriteLine($"booking requested: {numberOfSeats}");
+        }
+
+        public void OnMessage(object msg)
+        {
         }
     }
 }
